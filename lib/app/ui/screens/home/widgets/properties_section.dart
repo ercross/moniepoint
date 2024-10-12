@@ -22,22 +22,38 @@ class _PropertiesSectionView extends StatelessWidget {
           StaggeredGridTile.count(
             crossAxisCellCount: 2,
             mainAxisCellCount: 1,
-            child: _PropertyView(asset: AppImage.property1, radius: radius),
+            child: _PropertyView(
+              asset: AppImage.property1,
+              radius: radius,
+              address: "Gladkova St., 25",
+            ),
           ),
           StaggeredGridTile.count(
             crossAxisCellCount: 1,
             mainAxisCellCount: 2,
-            child: _PropertyView(asset: AppImage.property2, radius: radius),
+            child: _PropertyView(
+              asset: AppImage.property2,
+              radius: radius,
+              address: "Trevoleva St., 43",
+            ),
           ),
           StaggeredGridTile.count(
             crossAxisCellCount: 1,
             mainAxisCellCount: 1,
-            child: _PropertyView(asset: AppImage.property3, radius: radius),
+            child: _PropertyView(
+              asset: AppImage.property3,
+              radius: radius,
+              address: "Gubina St., 1",
+            ),
           ),
           StaggeredGridTile.count(
             crossAxisCellCount: 1,
             mainAxisCellCount: 1,
-            child: _PropertyView(asset: AppImage.property4, radius: radius),
+            child: _PropertyView(
+              asset: AppImage.property4,
+              radius: radius,
+              address: "Sedova St., 22",
+            ),
           ),
         ],
       ),
@@ -48,17 +64,84 @@ class _PropertiesSectionView extends StatelessWidget {
 class _PropertyView extends StatelessWidget {
   final String asset;
   final double radius;
-  const _PropertyView({required this.asset, required this.radius});
+  final String address;
+  const _PropertyView(
+      {required this.asset, required this.radius, required this.address});
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(radius),
-      clipBehavior: Clip.antiAlias,
-      child: Image.asset(
-        asset,
-        fit: BoxFit.cover,
-        width: MediaQuery.sizeOf(context).width,
+    return Stack(
+      children: [
+        Positioned(
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(radius),
+            clipBehavior: Clip.antiAlias,
+            child: Image.asset(
+              asset,
+              fit: BoxFit.cover,
+              width: MediaQuery.sizeOf(context).width,
+            ),
+          ),
+        ),
+        Positioned(
+            bottom: 10, left: 0, right: 0, child: _PropertyAddressBar(address))
+      ],
+    );
+  }
+}
+
+class _PropertyAddressBar extends StatelessWidget {
+  final String address;
+  const _PropertyAddressBar(this.address);
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (_, constraints) => Container(
+        padding: const EdgeInsets.all(2),
+        height: 47,
+        margin: EdgeInsets.symmetric(horizontal: constraints.maxWidth * 0.05),
+        width: constraints.maxWidth,
+        decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 209, 189, 158).withOpacity(0.95),
+            borderRadius: BorderRadius.circular(25)),
+        child: Row(
+          children: [
+            Expanded(
+                child: Center(
+              child: Text(address,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context).colorScheme.tertiary,
+                      fontWeight: FontWeight.w400)),
+            )),
+            const _ViewPropertyPageButton(size: 45)
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ViewPropertyPageButton extends StatelessWidget {
+  final double size;
+  const _ViewPropertyPageButton({required this.size});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: size,
+      width: size,
+      decoration:
+          const BoxDecoration(shape: BoxShape.circle, color: Color(0xFFFAF4EC)),
+      child: Icon(
+        CupertinoIcons.forward,
+        size: 14,
+        color: Theme.of(context).colorScheme.tertiary,
       ),
     );
   }
