@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 abstract class AppTheme {
-  static const String _font = "TTFors";
+  static const String _font = "Ubuntu";
 
   static ThemeData lightMode = ThemeData(
       fontFamily: _font,

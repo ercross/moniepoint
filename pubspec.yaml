@@ -28,17 +28,13 @@ flutter:
     - assets/icons/
 
   fonts:
-    - family: TTFors
+    - family: Ubuntu
       fonts:
-        - asset: assets/fonts/tt_fors/w200.ttf
-          weight: 200
-        - asset: assets/fonts/tt_fors/w300.ttf
+        - asset: assets/fonts/Ubuntu/w300.ttf
           weight: 300
-        - asset: assets/fonts/tt_fors/w400.ttf
+        - asset: assets/fonts/Ubuntu/w400.ttf
           weight: 400
-        - asset: assets/fonts/tt_fors/w500.ttf
+        - asset: assets/fonts/Ubuntu/w500.ttf
           weight: 500
-        - asset: assets/fonts/tt_fors/w600.ttf
-          weight: 600
-        - asset: assets/fonts/tt_fors/w700.ttf
+        - asset: assets/fonts/Ubuntu/w700.ttf
           weight: 700
