@@ -10,4 +10,9 @@ abstract class AppImage {
 abstract class AppIcon {
   static const String _dir = "assets/icons";
   static const String location = "$_dir/location.svg";
+  static const String person = "$_dir/person.svg";
+  static const String home = "$_dir/home.svg";
+  static const String chat = "$_dir/chat.svg";
+  static const String search = "$_dir/search.svg";
+  static const String favorite = "$_dir/favorite.svg";
 }

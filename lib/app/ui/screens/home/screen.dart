@@ -20,8 +20,7 @@ class HomeScreen extends StatelessWidget {
       statusBarIconBrightness: Brightness.dark, // Dark icons (black)
       statusBarBrightness: Brightness.light, // For iOS devices
     ));
-    return Scaffold(
-        body: Container(
+    return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -79,6 +78,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    );
   }
 }

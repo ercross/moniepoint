@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:moniepoint/app/ui/screens/home/screen.dart';
 
+import 'app/ui/screens/screens_scaffold.dart';
 import 'app/ui/theme.dart';
 
 void main() {
@@ -13,8 +13,8 @@ class Moniepoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {HomeScreen.route: (context) => const HomeScreen()},
-      initialRoute: HomeScreen.route,
+      routes: {NavigableScreenScaffold.route: (context) => const NavigableScreenScaffold()},
+      initialRoute: NavigableScreenScaffold.route,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightMode,
     );
