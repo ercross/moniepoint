@@ -40,30 +40,29 @@ class _BuyOfferView extends StatelessWidget {
     return Container(
       height: height,
       width: height,
-      padding: const EdgeInsets.all(10),
-      decoration:
-          const BoxDecoration(shape: BoxShape.circle, color: AppColor.primary),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          shape: BoxShape.circle, color: Theme.of(context).colorScheme.primary),
       alignment: Alignment.center,
       child: Column(
         children: [
           Text("BUY",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(color: Colors.white)),
-          const SizedBox(height: 40),
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context).colorScheme.onPrimary)),
+          const SizedBox(height: 25),
           Text("1 034",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineMedium
-                  ?.copyWith(color: Colors.white)),
-          const SizedBox(height: 10),
+              style: TextStyle(
+                  fontSize: 34,
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).colorScheme.onPrimary)),
           Text(
             "offers",
-            style: Theme.of(context)
-                .textTheme
-                .bodySmall
-                ?.copyWith(color: Colors.white),
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: Theme.of(context).colorScheme.onPrimary),
           )
         ],
       ),
@@ -79,19 +78,35 @@ class _RentOfferView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: height,
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          gradient: const LinearGradient(
-              colors: [Color(0xFFFCF6F0), Color(0xFFFEFFFE)])),
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                Theme.of(context).colorScheme.surfaceContainerLow,
+                Theme.of(context).colorScheme.surfaceContainerHigh
+              ])),
       alignment: Alignment.center,
       child: Column(
         children: [
-          Text("RENT", style: Theme.of(context).textTheme.bodyMedium),
-          const SizedBox(height: 40),
-          Text("2 212", style: Theme.of(context).textTheme.headlineMedium),
-          const SizedBox(height: 10),
-          Text("offers", style: Theme.of(context).textTheme.bodySmall),
+          Text("RENT",
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context).colorScheme.onSurface)),
+          const SizedBox(height: 25),
+          Text("2 212",
+              style: TextStyle(
+                  fontSize: 34,
+                  fontWeight: FontWeight.w700,
+                  color: Theme.of(context).colorScheme.onSurface)),
+          Text("offers",
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Theme.of(context).colorScheme.onSurface)),
         ],
       ),
     );

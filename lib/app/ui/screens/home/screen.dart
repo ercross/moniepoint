@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:moniepoint/app/ui/colors.dart';
 import 'package:moniepoint/app/ui/graphics.dart';
 
 part 'widgets/app_bar.dart';
@@ -17,11 +16,18 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [AppColor.backgroundLight, AppColor.backgroundDeep])),
+              stops: const [
+            0.159,
+            0.841
+          ],
+              colors: [
+            Theme.of(context).colorScheme.surfaceBright,
+            Theme.of(context).colorScheme.surfaceDim
+          ])),
       child: SafeArea(
         minimum: const EdgeInsets.only(top: 40),
         child: SingleChildScrollView(
@@ -35,9 +41,12 @@ class HomeScreen extends StatelessWidget {
                   horizontal: _topScreenPadding,
                 ),
                 child: Text("Hi, Marina",
-                    style: Theme.of(context).textTheme.bodyMedium),
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400,
+                        color: Theme.of(context).colorScheme.secondary)),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 4),
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: HomeScreen._topScreenPadding,
@@ -46,11 +55,15 @@ class HomeScreen extends StatelessWidget {
                   right: MediaQuery.sizeOf(context).width * 0.3,
                 ),
                 child: Text(
-                  "Let's select your perfect place",
-                  style: Theme.of(context).textTheme.headlineSmall,
+                  "let's select your perfect place",
+                  style: TextStyle(
+                      fontSize: 28,
+                      height: 1.1,
+                      fontWeight: FontWeight.w400,
+                      color: Theme.of(context).colorScheme.tertiary),
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
               const _OffersCount(
                 itemsHeight: 170,
               ),

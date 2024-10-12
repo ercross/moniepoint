@@ -42,13 +42,16 @@ class _LocationView extends StatelessWidget {
             height: 18,
             width: 18,
             fit: BoxFit.contain,
-            colorFilter:
-                const ColorFilter.mode(AppColor.textGold, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.secondary, BlendMode.srcIn),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 6),
           Text(
             "Saint Petersburg",
-            style: Theme.of(context).textTheme.bodySmall,
+            style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.secondary),
           )
         ],
       ),
