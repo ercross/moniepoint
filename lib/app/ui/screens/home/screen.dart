@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:moniepoint/app/ui/graphics.dart';
@@ -10,10 +11,15 @@ part 'widgets/properties_section.dart';
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
   static const String route = "home";
-  static const double _topScreenPadding = 18.0;
+  static const double _topScreenPadding = 16.0;
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // Transparent status bar
+      statusBarIconBrightness: Brightness.dark, // Dark icons (black)
+      statusBarBrightness: Brightness.light, // For iOS devices
+    ));
     return Scaffold(
         body: Container(
       decoration: BoxDecoration(
@@ -63,10 +69,11 @@ class HomeScreen extends StatelessWidget {
                       color: Theme.of(context).colorScheme.tertiary),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 50),
               const _OffersCount(
                 itemsHeight: 170,
               ),
+              
               const _PropertiesSectionView()
             ],
           ),

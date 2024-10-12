@@ -15,7 +15,7 @@ class _AppBar extends StatelessWidget {
           const _LocationView(),
           const Expanded(child: SizedBox()),
           CircleAvatar(
-            radius: 20,
+            radius: 22,
             foregroundImage: Image.asset(AppImage.profilePics).image,
           )
         ],

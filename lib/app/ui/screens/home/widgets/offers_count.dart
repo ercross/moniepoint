@@ -6,9 +6,10 @@ class _OffersCount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          HomeScreen._topScreenPadding, 0, HomeScreen._topScreenPadding, 20),
+    return Container(
+      margin: const EdgeInsets.only(bottom: 30),
+      padding:
+          const EdgeInsets.symmetric(horizontal: HomeScreen._topScreenPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
