@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'app/ui/screens/screens_scaffold.dart';
+import 'app/ui/screens/screens_scaffold/scaffold.dart';
 import 'app/ui/theme.dart';
 
 void main() {
