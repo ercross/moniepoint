@@ -107,7 +107,7 @@ class _PropertyAddressBar extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: constraints.maxWidth * 0.05),
         width: constraints.maxWidth,
         decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 209, 189, 158).withOpacity(0.95),
+            color: const Color.fromARGB(255, 199, 177, 144).withOpacity(0.95),
             borderRadius: BorderRadius.circular(25)),
         child: Row(
           children: [

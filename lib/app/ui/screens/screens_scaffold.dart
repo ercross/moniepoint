@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moniepoint/app/ui/screens/home/screen.dart';
+import 'package:moniepoint/app/ui/screens/property_search/screen.dart';
 import 'package:moniepoint/app/ui/shared_widgets/botton_nav_bar.dart';
 
 class NavigableScreenScaffold extends StatelessWidget {
@@ -15,7 +16,7 @@ class NavigableScreenScaffold extends StatelessWidget {
             width: MediaQuery.sizeOf(context).width,
             left: 0,
             height: MediaQuery.sizeOf(context).height,
-            child: const HomeScreen()),
+            child: const PropertySearchScreen()),
         const Positioned(
             bottom: 30, left: 0, right: 0, child: CustomBottomNavBar())
       ]),

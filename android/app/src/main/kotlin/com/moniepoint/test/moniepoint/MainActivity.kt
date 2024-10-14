@@ -1,4 +1,4 @@
-package com.moniepoint.test.moniepoint
+package com.moniepoint.test
 
 import io.flutter.embedding.android.FlutterActivity
 

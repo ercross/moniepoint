@@ -19,7 +19,7 @@ class CustomBottomNavBar extends StatelessWidget {
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _Item(isActive: false, svgIconAsset: AppIcon.search),
+          _Item(isActive: false, svgIconAsset: AppIcon.search_filled),
           _Item(isActive: false, svgIconAsset: AppIcon.chat),
           _Item(isActive: true, svgIconAsset: AppIcon.home),
           _Item(isActive: false, svgIconAsset: AppIcon.favorite),
