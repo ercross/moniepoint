@@ -17,21 +17,18 @@ class NavigableScreenScaffold extends StatefulWidget {
       _NavigableScreenScaffoldState();
 }
 
-class _NavigableScreenScaffoldState extends State<NavigableScreenScaffold>
-    {
-  int _activeIndex = 1;
+class _NavigableScreenScaffoldState extends State<NavigableScreenScaffold> {
+  int _activeIndex = 0;
 
   // only two pages will be provided to PageController.
   // Hence, the homepage is the second page
   late final PageController _pageController;
   double _bottomNavBarPosition = -100;
-  
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _activeIndex);
-    
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 6500)).then((_) {
@@ -56,10 +53,10 @@ class _NavigableScreenScaffoldState extends State<NavigableScreenScaffold>
               children: const [PropertySearchScreen(), HomeScreen()],
             )),
         AnimatedPositioned(
-          duration: const Duration(milliseconds: 2000),
+            duration: const Duration(milliseconds: 2000),
             bottom: _bottomNavBarPosition,
-            left: MediaQuery.sizeOf(context).width * 0.16,
-            right: MediaQuery.sizeOf(context).width * 0.16,
+            left: MediaQuery.sizeOf(context).width * 0.18,
+            right: MediaQuery.sizeOf(context).width * 0.18,
             child: _CustomBottomNavBar(
               activeIndex: _activeIndex,
               onTapIndex: _onClickPage,

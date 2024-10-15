@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,8 +9,15 @@ part 'widgets/search_bar.dart';
 part 'widgets/bottom_buttons.dart';
 part 'widgets/property_location_pin.dart';
 
-class PropertySearchScreen extends StatelessWidget {
+class PropertySearchScreen extends StatefulWidget {
   const PropertySearchScreen({super.key});
+
+  @override
+  State<PropertySearchScreen> createState() => _PropertySearchScreenState();
+}
+
+class _PropertySearchScreenState extends State<PropertySearchScreen> {
+  final Duration _animationDuration = const Duration(milliseconds: 1500);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +25,7 @@ class PropertySearchScreen extends StatelessWidget {
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
     ));
-    final double horizontalMargin = MediaQuery.sizeOf(context).width * 0.070;
+    final double horizontalMargin = MediaQuery.sizeOf(context).width * 0.085;
     return Stack(
       children: [
         Positioned.fill(
@@ -28,9 +37,13 @@ class PropertySearchScreen extends StatelessWidget {
           right: horizontalMargin,
           left: horizontalMargin,
           top: 55,
-          child: const _SearchBar(),
+          height: 45,
+          child: _SearchBar(
+            animationDuration: _animationDuration,
+          ),
         ),
         ..._randomisePropertyLocationPins(
+            animationDuration: _animationDuration,
 
             // search bar height + margin before search bar
             boundaryTop: 55 + 47,
@@ -39,7 +52,7 @@ class PropertySearchScreen extends StatelessWidget {
             bottom: 100,
             right: horizontalMargin,
             left: horizontalMargin,
-            child: const _BottomButtons())
+            child: _BottomButtons(animationDuration: _animationDuration))
       ],
     );
   }

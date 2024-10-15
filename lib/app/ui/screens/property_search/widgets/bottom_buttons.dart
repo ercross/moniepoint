@@ -1,7 +1,29 @@
 part of '../screen.dart';
 
-class _BottomButtons extends StatelessWidget {
-  const _BottomButtons({super.key});
+class _BottomButtons extends StatefulWidget {
+  final Duration animationDuration;
+  const _BottomButtons({required this.animationDuration});
+
+  @override
+  State<_BottomButtons> createState() => _BottomButtonsState();
+}
+
+class _BottomButtonsState extends State<_BottomButtons> {
+  double _roundButtonSize = 0;
+  double _listButtonHeight = 0;
+  double _listButtonWidth = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        _roundButtonSize = 42;
+        _listButtonHeight = 44;
+        _listButtonWidth = 140;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +34,10 @@ class _BottomButtons extends StatelessWidget {
       children: [
         Column(
           children: [
-            Container(
+            AnimatedContainer(
+              height: _roundButtonSize,
+              width: _roundButtonSize,
+              duration: widget.animationDuration,
               padding: const EdgeInsets.all(12),
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: containerColor),
@@ -24,13 +49,16 @@ class _BottomButtons extends StatelessWidget {
                       const ColorFilter.mode(iconColor, BlendMode.srcIn)),
             ),
             const SizedBox(height: 6),
-            Container(
+            AnimatedContainer(
+              height: _roundButtonSize,
+              width: _roundButtonSize,
+              duration: widget.animationDuration,
               padding: const EdgeInsets.all(14),
               decoration: const BoxDecoration(
                   shape: BoxShape.circle, color: containerColor),
               child: SvgPicture.asset(AppIcon.send,
-                  height: 16,
-                  width: 16,
+                  height: 18,
+                  width: 18,
                   fit: BoxFit.contain,
                   colorFilter:
                       const ColorFilter.mode(iconColor, BlendMode.srcIn)),
@@ -38,11 +66,15 @@ class _BottomButtons extends StatelessWidget {
           ],
         ),
         const Expanded(child: SizedBox()),
-        Container(
+        AnimatedContainer(
+          duration: widget.animationDuration,
+          height: _listButtonHeight,
+          width: _listButtonWidth,
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
               color: containerColor, borderRadius: BorderRadius.circular(25)),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SvgPicture.asset(AppIcon.leftAlign,
                   height: 14,
