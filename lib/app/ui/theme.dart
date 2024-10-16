@@ -4,7 +4,7 @@ abstract class _LightThemeColor {
   static const Color primary = Color(0xFFFC9F12);
   static const Color secondary = Color(0xFFA5957E);
   static const Color backgroundLight = Color(0xFFF9F8F9);
-  static const Color backgroundDeep = Color.fromARGB(255, 233, 173, 90);
+  static const Color backgroundDeep = Color.fromARGB(255, 234, 197, 146);
   static const Color onBackgroundContainerLight =
       Color(0xFFFEFFFE);
   static const Color onBackgroundContainerDeep =
