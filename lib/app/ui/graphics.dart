@@ -14,10 +14,13 @@ abstract class AppIcon {
   static const String person = "$_dir/person.svg";
   static const String home = "$_dir/home.svg";
   static const String chat = "$_dir/chat.svg";
-  static const String search_filled = "$_dir/search.svg";
+  static const String searchFilled = "$_dir/search.svg";
   static const String favorite = "$_dir/favorite.svg";
   static const String searchOutline = "$_dir/search_outline.svg";
   static const String leftAlign = "$_dir/left_align.svg";
   static const String stack = "$_dir/stack.svg";
   static const String send = "$_dir/send.svg";
+  static const String wallet = "$_dir/wallet.svg";
+  static const String infrastructure = "$_dir/infrastructure.svg";
+  static const String secured = "$_dir/secured.svg";
 }

@@ -16,11 +16,11 @@ abstract class AppTheme {
 
   static ThemeData lightMode = ThemeData(
     fontFamily: _font,
-    
+    iconTheme: const IconThemeData(color: Color.fromARGB(255, 83, 78, 71)),
     colorScheme: const ColorScheme.light(
       primary: _LightThemeColor.primary,
       secondary: _LightThemeColor.secondary,
-      secondaryFixedDim: Color.fromARGB(255, 72, 67, 60),
+      secondaryFixedDim: Color.fromARGB(255, 87, 81, 73),
       tertiary: Colors.black,
       onPrimary: Colors.white,
       surfaceBright: _LightThemeColor.backgroundLight,

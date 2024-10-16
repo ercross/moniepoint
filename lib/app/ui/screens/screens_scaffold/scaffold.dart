@@ -55,8 +55,8 @@ class _NavigableScreenScaffoldState extends State<NavigableScreenScaffold> {
         AnimatedPositioned(
             duration: const Duration(milliseconds: 2000),
             bottom: _bottomNavBarPosition,
-            left: MediaQuery.sizeOf(context).width * 0.18,
-            right: MediaQuery.sizeOf(context).width * 0.18,
+            left: MediaQuery.sizeOf(context).width * 0.175,
+            right: MediaQuery.sizeOf(context).width * 0.175,
             child: _CustomBottomNavBar(
               activeIndex: _activeIndex,
               onTapIndex: _onClickPage,

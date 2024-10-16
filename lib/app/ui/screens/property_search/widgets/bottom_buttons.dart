@@ -34,19 +34,23 @@ class _BottomButtonsState extends State<_BottomButtons> {
       children: [
         Column(
           children: [
-            AnimatedContainer(
-              height: _roundButtonSize,
-              width: _roundButtonSize,
-              duration: widget.animationDuration,
-              padding: const EdgeInsets.all(12),
-              decoration: const BoxDecoration(
-                  shape: BoxShape.circle, color: containerColor),
-              child: SvgPicture.asset(AppIcon.stack,
-                  height: 18,
-                  width: 18,
-                  fit: BoxFit.cover,
-                  colorFilter:
-                      const ColorFilter.mode(iconColor, BlendMode.srcIn)),
+            GestureDetector(
+              onTap: _toggleMenuOverlay,
+              child: AnimatedContainer(
+                key: _buttonKey,
+                height: _roundButtonSize,
+                width: _roundButtonSize,
+                duration: widget.animationDuration,
+                padding: const EdgeInsets.all(12),
+                decoration: const BoxDecoration(
+                    shape: BoxShape.circle, color: containerColor),
+                child: SvgPicture.asset(AppIcon.stack,
+                    height: 18,
+                    width: 18,
+                    fit: BoxFit.cover,
+                    colorFilter:
+                        const ColorFilter.mode(iconColor, BlendMode.srcIn)),
+              ),
             ),
             const SizedBox(height: 6),
             AnimatedContainer(
@@ -95,5 +99,48 @@ class _BottomButtonsState extends State<_BottomButtons> {
         )
       ],
     );
+  }
+
+  final GlobalKey _buttonKey = GlobalKey();
+  Offset _findButtonGlobalPosition() {
+    final RenderBox renderBox =
+        _buttonKey.currentContext!.findRenderObject() as RenderBox;
+    return renderBox.localToGlobal(Offset.zero);
+  }
+
+  OverlayEntry? _entry;
+  _toggleMenuOverlay() {
+    if (_entry == null) {
+      _showStackMenuOverlay(_findButtonGlobalPosition());
+      return;
+    }
+  }
+
+  _showStackMenuOverlay(Offset globalPosition) {
+    _entry = OverlayEntry(
+        canSizeOverlay: true,
+        builder: (ctx) {
+          return GestureDetector(
+              behavior: HitTestBehavior.deferToChild,
+              child: Material(
+                elevation: 0,
+                color: Colors.white10,
+                child: Stack(children: [
+                  Positioned(
+                    top: globalPosition.dy - 120,
+                    left: globalPosition.dx,
+                    child: _StackMenu(
+                      executeAfterClose: _removeOverlayEntry,
+                    ),
+                  ),
+                ]),
+              ));
+        });
+    Overlay.of(context).insert(_entry!);
+  }
+
+  _removeOverlayEntry() {
+    _entry!.remove();
+    _entry = null;
   }
 }

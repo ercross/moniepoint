@@ -8,6 +8,7 @@ import 'package:moniepoint/app/ui/graphics.dart';
 part 'widgets/search_bar.dart';
 part 'widgets/bottom_buttons.dart';
 part 'widgets/property_location_pin.dart';
+part 'widgets/stack_menu.dart';
 
 class PropertySearchScreen extends StatefulWidget {
   const PropertySearchScreen({super.key});

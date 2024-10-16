@@ -23,7 +23,7 @@ class _CustomBottomNavBar extends StatelessWidget {
                   onPressed: () {
                     onTapIndex(0);
                   },
-                  svgIconAsset: AppIcon.search_filled),
+                  svgIconAsset: AppIcon.searchFilled),
               _Item(
                   isActive: false,
                   svgIconAsset: AppIcon.chat,

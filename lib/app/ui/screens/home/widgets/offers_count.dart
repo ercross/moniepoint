@@ -17,7 +17,7 @@ class _OffersCount extends StatelessWidget {
             flex: 1,
             child: _BuyOfferView(animationDuration),
           ),
-          SizedBox(width: 5),
+          const SizedBox(width: 5),
           Flexible(
             flex: 1,
             child: _RentOfferView(animationDuration),
