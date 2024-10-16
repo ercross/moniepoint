@@ -18,8 +18,6 @@ class NavigableScreenScaffold extends StatefulWidget {
 }
 
 class _NavigableScreenScaffoldState extends State<NavigableScreenScaffold> {
-  int _activeIndex = 0;
-
   // only two pages will be provided to PageController.
   // Hence, the homepage is the second page
   late final PageController _pageController;
@@ -28,13 +26,18 @@ class _NavigableScreenScaffoldState extends State<NavigableScreenScaffold> {
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: _activeIndex);
-
+    _pageController = PageController(initialPage: activeIndex.value);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 6500)).then((_) {
         setState(() => _bottomNavBarPosition = 30);
       });
     });
+  }
+
+  @override
+  void dispose() {
+    activeIndex.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,8 +50,7 @@ class _NavigableScreenScaffoldState extends State<NavigableScreenScaffold> {
             left: 0,
             height: MediaQuery.sizeOf(context).height,
             child: PageView(
-              onPageChanged: (newIndex) =>
-                  setState(() => _activeIndex = newIndex),
+              onPageChanged: (newIndex) => activeIndex.value = newIndex,
               controller: _pageController,
               children: const [PropertySearchScreen(), HomeScreen()],
             )),
@@ -57,23 +59,20 @@ class _NavigableScreenScaffoldState extends State<NavigableScreenScaffold> {
             bottom: _bottomNavBarPosition,
             left: MediaQuery.sizeOf(context).width * 0.175,
             right: MediaQuery.sizeOf(context).width * 0.175,
-            child: _CustomBottomNavBar(
-              activeIndex: _activeIndex,
-              onTapIndex: _onClickPage,
-            ))
+            child: _CustomBottomNavBar(onTapIndex: _onClickPage))
       ]),
     );
   }
 
   _onClickPage(int index) {
-    if (index == _activeIndex) {
+    if (index == activeIndex.value) {
       // no-op
       return;
     }
     if (index < 2) {
       _pageController.animateToPage(index,
           duration: const Duration(milliseconds: 750), curve: Curves.easeInOut);
-      setState(() => _activeIndex = index);
+      activeIndex.value = index;
       return;
     }
 

@@ -1,10 +1,10 @@
 part of 'scaffold.dart';
 
+final ValueNotifier<int> activeIndex = ValueNotifier(1);
+
 class _CustomBottomNavBar extends StatelessWidget {
-  final int activeIndex;
   final Function(int) onTapIndex;
-  const _CustomBottomNavBar(
-      {required this.activeIndex, required this.onTapIndex});
+  const _CustomBottomNavBar({required this.onTapIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -19,34 +19,34 @@ class _CustomBottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               _Item(
-                  isActive: activeIndex == 0,
+                  index: 0,
                   onPressed: () {
                     onTapIndex(0);
                   },
                   svgIconAsset: AppIcon.searchFilled),
               _Item(
-                  isActive: false,
+                  index: 300,
                   svgIconAsset: AppIcon.chat,
                   onPressed: () {
                     onTapIndex(300);
                   }),
               _Item(
-                  isActive: activeIndex == 1,
+                  index: 1,
                   svgIconAsset: AppIcon.home,
                   onPressed: () {
                     onTapIndex(1);
                   }),
               _Item(
-                  isActive: false,
+                  index: 301,
                   svgIconAsset: AppIcon.favorite,
                   onPressed: () {
-                    onTapIndex(300);
+                    onTapIndex(301);
                   }),
               _Item(
-                  isActive: false,
+                  index: 302,
                   svgIconAsset: AppIcon.person,
                   onPressed: () {
-                    onTapIndex(300);
+                    onTapIndex(302);
                   }),
             ],
           ),
@@ -56,55 +56,116 @@ class _CustomBottomNavBar extends StatelessWidget {
   }
 }
 
-class _Item extends StatelessWidget {
-  final bool isActive;
+class _Item extends StatefulWidget {
   final String svgIconAsset;
-
+  final int index;
   final Function() onPressed;
   const _Item(
-      {required this.isActive,
+      {required this.index,
       required this.onPressed,
       required this.svgIconAsset});
 
   @override
-  Widget build(BuildContext context) {
-    final double buttonSize = isActive ? 50 : 40;
-    const double iconSize = 22;
+  State<_Item> createState() => _ItemState();
+}
 
-    return CustomRippleButton(
-      onPressed: onPressed,
-      size: const Size(50, 50),
-      child: AnimatedContainer(
-        height: buttonSize,
-        width: buttonSize,
-        duration: const Duration(milliseconds: 600),
-        decoration: BoxDecoration(
-            color: isActive
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.tertiary,
-            shape: BoxShape.circle),
-        padding: const EdgeInsets.all(10.0),
-        child: SvgPicture.asset(
-          height: iconSize,
-          width: iconSize,
-          fit: BoxFit.contain,
-          svgIconAsset,
-          colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-        ),
+class _ItemState extends State<_Item> {
+  double _size = 40;
+  late Color _color;
+  late bool _isActive;
+  late bool _showRippleButton;
+  static const _rippleAnimationDuration = Duration(milliseconds: 1000);
+
+  @override
+  void initState() {
+    super.initState();
+    _showRippleButton = false;
+    _isActive = false;
+    _color = Colors.transparent;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        _isActive = activeIndex.value == widget.index;
+        _color = _isActive
+            ? Theme.of(context).colorScheme.primary
+            : Theme.of(context).colorScheme.tertiary;
+        _size = _isActive ? 50 : 40;
+      });
+    });
+
+    activeIndex.addListener(() {
+      if (activeIndex.value == widget.index) {
+        setState(() {
+          _isActive = true;
+          _size = 50;
+          _color = Theme.of(context).colorScheme.primary;
+        });
+      } else {
+        setState(() {
+          _isActive = false;
+          _size = 40;
+          _color = Theme.of(context).colorScheme.tertiary;
+        });
+      }
+    });
+  }
+
+  /// switch between [CustomRippleButton] and [_Item]
+  _switchButtons() {
+    if (_isActive) {
+      return;
+    }
+
+    activeIndex.value == widget.index;
+    Future.delayed(_rippleAnimationDuration, () {
+      setState(() => _showRippleButton = false);
+      widget.onPressed();
+    });
+    setState(() => _showRippleButton = true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    const double iconSize = 22;
+    return GestureDetector(
+      onTap: _switchButtons,
+      child: AnimatedSwitcher(
+        duration: const Duration(seconds: 2),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        child: _showRippleButton
+            ? const CustomRippleButton(
+                size: Size(50, 50), animationDuration: _rippleAnimationDuration)
+            : AnimatedContainer(
+                height: _size,
+                width: _size,
+                duration: const Duration(milliseconds: 1200),
+                decoration:
+                    BoxDecoration(color: _color, shape: BoxShape.circle),
+                padding: const EdgeInsets.all(10.0),
+                child: SvgPicture.asset(
+                  height: iconSize,
+                  width: iconSize,
+                  fit: BoxFit.contain,
+                  widget.svgIconAsset,
+                  colorFilter:
+                      const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                ),
+              ),
       ),
     );
   }
 }
 
 class CustomRippleButton extends StatefulWidget {
-  final Widget child;
   final Size size;
-  final Function() onPressed;
+  final Duration animationDuration;
   const CustomRippleButton(
-      {required this.child,
-      required this.size,
-      required this.onPressed,
-      super.key});
+      {required this.animationDuration, required this.size, super.key});
 
   @override
   CustomRippleButtonState createState() => CustomRippleButtonState();
@@ -117,31 +178,17 @@ class CustomRippleButtonState extends State<CustomRippleButton>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 750));
-  }
-
-  void _startRipple() {
+    _controller =
+        AnimationController(vsync: this, duration: widget.animationDuration);
     _controller.forward(from: 0.0);
-    widget.onPressed();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _startRipple,
-      child: SizedBox(
-        height: widget.size.height,
-        width: widget.size.width,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            Center(child: widget.child),
-            if (_controller.isAnimating)
-              _RippleAnimation(controller: _controller, button: widget.child),
-          ],
-        ),
-      ),
+    return SizedBox(
+      height: widget.size.height,
+      width: widget.size.width,
+      child: _RippleAnimation(controller: _controller),
     );
   }
 
@@ -154,8 +201,7 @@ class CustomRippleButtonState extends State<CustomRippleButton>
 
 class _RippleAnimation extends StatelessWidget {
   final AnimationController controller;
-  final Widget button;
-  const _RippleAnimation({required this.controller, required this.button});
+  const _RippleAnimation({required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -164,6 +210,7 @@ class _RippleAnimation extends StatelessWidget {
       builder: (context, child) {
         return CustomPaint(
           painter: RipplePainter(controller.value),
+          child: Container(),
         );
       },
     );
